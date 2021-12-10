@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+        <style>
+            .center {
+                text-align: center;
+            }
+
+            .top {
+                display: flex;
+                flex-direction: column;
+            }
+        </style>
+    </head>
+    <body class="center">
+        <h1>Classify Genre of Lyrics!</h1>
+        <br><br><br><br>
+        <div class="d-flex justify-content-center">
+            <label class="align-items-start">Enter Lyrics of Song:</label>
+            <div class="p-2"></div>
+            <textarea id="enter_lyrics" rows="4" cols="50">
+            
+            </textarea>
+            <div class="p-2"></div>
+            <button id="submit" type="button" class="btn btn-success align-self-start">Submit</button>
+        </div>
+        <br>
+        <div class="d-flex flex-row justify-content-center">
+            <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">Genre:</span>
+            </div>
+            <div class="w-25">
+                <input id="genre_spec" type="text" class="form-control text-wrap" aria-label="GenreClass" aria-describedby="basic-addon1">
+            </div>
+        </div>
+    </body>
+    <script>
+
+        document.getElementById("submit").onclick = async function() {
+            var lyrics = {
+                "lyrics": document.getElementById("enter_lyrics").value
+            };
+
+            axios.post('http://localhost:5000/get_genre', data={"lyrics":lyrics})
+            .then(function (response) {
+                document.getElementById("genre_spec").value = response.data['result'];
+            })
+
+        };
+    </script>
+</html>
